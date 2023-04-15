@@ -1,0 +1,69 @@
+﻿@*
+  
+    IEnumerable<string> strList = new List<string>{"POO","TW","MAT3","FIS1"};
+*@
+@{
+    IEnumerable<string> marcaList = new List<string> { "Lenovo", "Samsumg", "Hp" };
+}
+@{
+    <body>
+        <div>
+            <h1>Tabla equipos</h1>
+            <div class="row">
+                <div class="form-groups">
+                    @Html.Label("nombre del equipo")
+                    @Html.TextBox("txtUserName", "", new {@class="form-control"})
+                </div>
+                <div class="form-groups">
+                    @Html.Label("descripción del equipo")
+                    @Html.TextArea("Descripción", "", new{@class="form-control"})
+                </div>
+                <div class="form-groups">
+                    @Html.Label("tipo de equipo")
+                    @Html.ListBox("Seleccione el tipo de equipo", new List<SelectListItem>{
+                        new SelectListItem {Text = "Laptop", Value = "1"},
+                        new SelectListItem {Text = "Impresora", Value = "2"},
+                        new SelectListItem {Text = "Tablet", Value = "3"},
+                        new SelectListItem {Text = "Celular", Value = "4"}
+                        })
+                </div>
+                <div class="form-groups">
+                    @Html.Label("marca")
+                    @Html.DropDownList("ddlMarca", new SelectList(marcaList, marcaList.FirstOrDefault()), "--Seleccionar marca ----" )
+                    
+                </div>
+                <div class="form-groups">
+                    @Html.Label("modelo")
+                    @Html.TextBox("txtmodelo", "", new {@class="form-control"})
+                </div>
+                <div class="form-groups">
+                    @Html.Label("año de compra")
+                    @Html.TextBox("txtAnio", "", new {@class="form-control"})
+                </div>
+                <div class="form-groups">
+                    @Html.Label("costo")
+                    @Html.TextBox("txtCosto", "", new {@class="form-control"})
+                </div>
+                <div class="form-groups">
+                    @Html.Label("vida util:")<br />
+
+                    @Html.CheckBox("menos2") menos de 2 años <br />
+                    @Html.CheckBox("2anios") 2 años<br />
+                    @Html.CheckBox("3-5anios", true) 3-5 años<br />
+                    @Html.CheckBox("mas5") más de 5 años
+                </div>
+                <div class="form-groups">
+                    @Html.Label("estado del equipo")<br />
+                    @Html.RadioButton("Estado", "Activo", true, new{id="activoo"})
+                    Activo
+                    @Html.RadioButton("Estado", "Inactivo", false, new{id="incativo"})
+                    Inactivo
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Envar datos</button>
+                </div>
+                
+            </div>
+        </div>
+    </body>
+}
