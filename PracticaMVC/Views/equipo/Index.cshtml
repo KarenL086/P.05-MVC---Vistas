@@ -9,61 +9,91 @@
     <body>
         <div>
             <h1>Tabla equipos</h1>
-            <div class="row">
-                <div class="form-groups">
-                    @Html.Label("nombre del equipo")
-                    @Html.TextBox("txtUserName", "", new {@class="form-control"})
-                </div>
-                <div class="form-groups">
-                    @Html.Label("descripción del equipo")
-                    @Html.TextArea("Descripción", "", new{@class="form-control"})
-                </div>
-                <div class="form-groups">
-                    @Html.Label("tipo de equipo")
-                    @Html.ListBox("Seleccione el tipo de equipo", new List<SelectListItem>{
-                        new SelectListItem {Text = "Laptop", Value = "1"},
-                        new SelectListItem {Text = "Impresora", Value = "2"},
-                        new SelectListItem {Text = "Tablet", Value = "3"},
-                        new SelectListItem {Text = "Celular", Value = "4"}
-                        })
-                </div>
-                <div class="form-groups">
-                    @Html.Label("marca")
-                    @Html.DropDownList("ddlMarca", new SelectList(marcaList, marcaList.FirstOrDefault()), "--Seleccionar marca ----" )
+            @*Inicio del Fromulario*@
+            <form asp-action="CrearEquipos">
+                <div class="from-grup row mb-4">
                     
+                    <div class="col-sm-2">
+                        <label>Nombre</label>
+                    </div>
+                    <div class="col-sm-4">
+                        @Html.TextBox("txtUserName", "", new {@class="form-control"})
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.Label("Descripción del equipo")
+                    </div>
+                    <div class="col-sm-4">
+                        @Html.TextArea("Descripción", "", new{@class="form-control", @placeHolder="Ingresa la descripcion"})
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.Label("tipo de equipo")
+                    </div>
+                    <div class="col-sm-4">
+                        @Html.DropDownList("id_tipo_equipo", ViewData["listadoDeTipo"] as SelectList, "Seleccione un tipo", new {@class="form-control"})
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.Label("Marca")
+                    </div>
+                    <div class="col-sm-4">
+                        @Html.DropDownList("marca_id", ViewData["listadoDeMarcas"] as SelectList, "Seleccione una marca", new {@class="form-control"})
+                    
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.Label("modelo")
+                    </div>
+                    <div class="col-sm-4">
+                        @Html.TextBox("txtmodelo", "", new {@class="form-control"})
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.Label("año de compra")
+                        </div>
+                    <div class="col-sm-4">
+                        @Html.TextBox("txtAnio", "", new {@class="form-control"})
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.Label("costo")
+                    </div>
+                    <div class="col-sm-4">
+                        @Html.TextBox("txtCosto", "", new {@class="form-control"})
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.Label("vida util:")
+                    </div>
+                    <div class="col-sm-4">
+                        @Html.TextBox("txtmodelo", "", new {@class="form-control"})
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.Label("estado del equipo")
+                    </div>
+                    <div class="col-sm-4">
+                        @Html.CheckBox("inactivo") Inactivo
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary">Envar datos</button>
+                    </div>
                 </div>
-                <div class="form-groups">
-                    @Html.Label("modelo")
-                    @Html.TextBox("txtmodelo", "", new {@class="form-control"})
-                </div>
-                <div class="form-groups">
-                    @Html.Label("año de compra")
-                    @Html.TextBox("txtAnio", "", new {@class="form-control"})
-                </div>
-                <div class="form-groups">
-                    @Html.Label("costo")
-                    @Html.TextBox("txtCosto", "", new {@class="form-control"})
-                </div>
-                <div class="form-groups">
-                    @Html.Label("vida util:")<br />
-
-                    @Html.CheckBox("menos2") menos de 2 años <br />
-                    @Html.CheckBox("2anios") 2 años<br />
-                    @Html.CheckBox("3-5anios", true) 3-5 años<br />
-                    @Html.CheckBox("mas5") más de 5 años
-                </div>
-                <div class="form-groups">
-                    @Html.Label("estado del equipo")<br />
-                    @Html.RadioButton("Estado", "Activo", true, new{id="activoo"})
-                    Activo
-                    @Html.RadioButton("Estado", "Inactivo", false, new{id="incativo"})
-                    Inactivo
-                </div>
-                <div>
-                    <button type="submit" class="btn btn-primary">Envar datos</button>
-                </div>
-                
-            </div>
+            </form>
+            @*Fin del Fromulario*@
         </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Equipo</th>
+                    <th>Descripcion</th>
+                    <th>Marca</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var equipo in (IEnumerable<dynamic>)ViewData["listadoEquipo"])
+                {
+                    <tr>
+                        <td>@equipo.nombre</td>
+                        <td>@equipo.descripcion</td>
+                        <td>@equipo.marca_nombre</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
     </body>
 }
